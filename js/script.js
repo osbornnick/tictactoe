@@ -8,21 +8,21 @@ playerTwo = playerFactory('o');
 
 const Game = ((playerOne, playerTwo) => {
   let board = Array(9).fill('');
-  let turnPlayer = playerOne;
+  let whoseTurn = playerOne;
 
   function restartGame() {
     board = Array(9).fill('');
-    turnPlayer = playerOne;
+    whoseTurn = playerOne;
   }
 
   function makeMove(i) {
     if (!board[i]) {
-      board[i] = turnPlayer.move;
+      board[i] = whoseTurn.move;
       if (winner()) {
-        turnPlayer.score += 1;
-        // announce winner
+        whoseTurn.score += 1;
+        displayController.endGame();
       }
-      turnPlayer = turnPlayer == playerOne ? playerTwo : playerOne;
+      whoseTurn = whoseTurn == playerOne ? playerTwo : playerOne;
     }
   }
 
@@ -47,19 +47,19 @@ const Game = ((playerOne, playerTwo) => {
     return false
   }
 
-  return { board, makeMove, winner }
+  return { board, makeMove, winner, whoseTurn }
 })(playerOne, playerTwo);
 
 const displayController = (() => {
-
   const _game = document.querySelector('.game');
+
   function _renderSquares() {
     Game.board.forEach((square, i) => {
       const div = document.createElement('div');
       div.className = 'square';
       div.style.gridRow = Math.ceil(i / 3 + .1);
       div.style.gridColumn = (i % 3) + 1;
-      div.setAttribute('data', i)
+      div.setAttribute('data', i);
       div.textContent = Game.board[i];
       _game.appendChild(div);
 
@@ -70,13 +70,49 @@ const displayController = (() => {
     })
   }
 
+  function _renderScore() {
+    const p1 = document.querySelector('#playerOneScore');
+    const p2 = document.querySelector('#playerTwoScore');
+
+    p1.textContent = `score: ${playerOne.score}`;
+    p2.textContent = `score: ${playerTwo.score}`;
+  }
+
+  function _renderCurrentPlayer() {
+
+    function _toggleActiveClass(ele) {
+      if (ele.classList.contains('activePlayer')) {
+        ele.classList.remove('activePlayer');
+        ele.classList.add('inactivePlayer');
+      } else {
+        ele.classList.remove('inactivePlayer');
+        ele.classList.add('activePlayer');
+      }
+    }
+
+    const p1 = document.querySelector('.p1');
+    const p2 = document.querySelector('.p2');
+
+    if (Game.whoseTurn === playerOne && p1.classList.contains('activePlayer')) {
+      return true
+    } else {
+      _toggleActiveClass(p1);
+      _toggleActiveClass(p2);
+    }
+  }
+
   function render() {
     _game.innerHTML = '' // reset contents
     _renderSquares();
+    _renderScore();
+    _renderCurrentPlayer();
   }
 
-  return { render }
-})(Game);
+  function endGame() {
+    console.log('game over');
+  }
 
-// Game.board = ['x', 'o', 'x', 'o', 'x', 'o', 'x', 'x', 'x'];
+  return { render, endGame }
+})();
+
 displayController.render();
