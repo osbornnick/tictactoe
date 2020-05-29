@@ -1,12 +1,14 @@
 const playerFactory = (move) => {
+  'use strict';
   let score = 0;
-  return { move, score }
-}
+  return { move, score };
+};
 
 playerOne = playerFactory('x');
 playerTwo = playerFactory('o');
 
 const Game = ((playerOne, playerTwo) => {
+  "use strict";
   let board = Array(9).fill('');
   let whoseTurn = playerOne;
 
@@ -22,7 +24,7 @@ const Game = ((playerOne, playerTwo) => {
         whoseTurn.score += 1;
         displayController.endGame();
       }
-      whoseTurn = whoseTurn == playerOne ? playerTwo : playerOne;
+      whoseTurn = whoseTurn === playerOne ? playerTwo : playerOne;
     }
   }
 
@@ -41,23 +43,24 @@ const Game = ((playerOne, playerTwo) => {
       const [a, b, c] = lines[i];
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
         //return squares[a];
-        return true
+        return true;
       }
     }
-    return false
+    return false;
   }
 
-  return { board, makeMove, winner, whoseTurn }
+  return { board, makeMove, winner, whoseTurn };
 })(playerOne, playerTwo);
 
 const displayController = (() => {
+  "use strict";
   const _game = document.querySelector('.game');
 
   function _renderSquares() {
     Game.board.forEach((square, i) => {
       const div = document.createElement('div');
       div.className = 'square';
-      div.style.gridRow = Math.ceil(i / 3 + .1);
+      div.style.gridRow = Math.ceil(i / 3 + 0.1);
       div.style.gridColumn = (i % 3) + 1;
       div.setAttribute('data', i);
       div.textContent = Game.board[i];
@@ -66,8 +69,8 @@ const displayController = (() => {
       div.addEventListener("click", e => {
         Game.makeMove(e.target.attributes.data.value);
         render();
-      })
-    })
+      });
+    });
   }
 
   function _renderScore() {
@@ -94,7 +97,7 @@ const displayController = (() => {
     const p2 = document.querySelector('.p2');
 
     if (Game.whoseTurn === playerOne && p1.classList.contains('activePlayer')) {
-      return true
+      return true;
     } else {
       _toggleActiveClass(p1);
       _toggleActiveClass(p2);
@@ -102,7 +105,7 @@ const displayController = (() => {
   }
 
   function render() {
-    _game.innerHTML = '' // reset contents
+    _game.innerHTML = ''; // reset contents
     _renderSquares();
     _renderScore();
     _renderCurrentPlayer();
@@ -112,7 +115,7 @@ const displayController = (() => {
     console.log('game over');
   }
 
-  return { render, endGame }
+  return { render, endGame };
 })();
 
 displayController.render();
