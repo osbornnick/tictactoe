@@ -10,7 +10,7 @@ const Game = ((playerOne, playerTwo) => {
   let board = Array(9).fill('');
   let turnPlayer = playerOne;
 
-  function _restartGame() {
+  function restartGame() {
     board = Array(9).fill('');
     turnPlayer = playerOne;
   }

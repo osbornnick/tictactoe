@@ -1,11 +1,18 @@
 .game {
   display: grid;
-  grid-template-rows: repeat(3, 100px);
-  grid-template-columns: repeat(3, 100px);
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  row-gap: 6px;
+  column-gap: 6px;
+  background-color: black;
+  height: 450px;
+  width: 450px;
+  margin: 30px;
 }
 
 .square {
   display: inline-grid;
-  border: solid .5px black;
+  background-color: white;
   place-items: center;
+  font-family: 'Chelsea Market', cursive;
+  font-size: 70px;
 }
