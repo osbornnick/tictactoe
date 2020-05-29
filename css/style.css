@@ -1,0 +1,11 @@
+.game {
+  display: grid;
+  grid-template-rows: repeat(3, 100px);
+  grid-template-columns: repeat(3, 100px);
+}
+
+.square {
+  display: inline-grid;
+  border: solid .5px black;
+  place-items: center;
+}
