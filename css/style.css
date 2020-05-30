@@ -3,10 +3,10 @@
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
   row-gap: 6px;
   column-gap: 6px;
-  background-color: black;
   height: 450px;
   width: 450px;
   margin: 30px;
+  background-color: #BBC5AA;
 }
 
 .square {
@@ -15,12 +15,24 @@
   place-items: center;
   font-family: 'Chelsea Market', cursive;
   font-size: 70px;
+  background-color: #FEFEE3;
 }
 
 .activePlayer {
-
+  background-color: #A72608;
+  color: white;
 }
 
 .inactivePlayer {
-  
+  background-color: #FEFEE3;
+  color: #392061;
+}
+.playerTag {
+  border-radius: 30%;
+  margin: 20px;
+  padding: 15px;
+}
+body {
+  background-color: #FEFEE3;
+  color: #66717E;
 }

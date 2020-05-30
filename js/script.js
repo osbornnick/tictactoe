@@ -4,13 +4,15 @@ const playerFactory = (move) => {
   return { move, score };
 };
 
-playerOne = playerFactory('x');
-playerTwo = playerFactory('o');
+const playerOne = playerFactory('x');
+const playerTwo = playerFactory('o');
 
 const Game = ((playerOne, playerTwo) => {
   "use strict";
   let board = Array(9).fill('');
   let whoseTurn = playerOne;
+
+  const getWhoseTurn = () => whoseTurn;
 
   function restartGame() {
     board = Array(9).fill('');
@@ -49,7 +51,7 @@ const Game = ((playerOne, playerTwo) => {
     return false;
   }
 
-  return { board, makeMove, winner, whoseTurn };
+  return { board, makeMove, winner, getWhoseTurn };
 })(playerOne, playerTwo);
 
 const displayController = (() => {
@@ -96,7 +98,7 @@ const displayController = (() => {
     const p1 = document.querySelector('.p1');
     const p2 = document.querySelector('.p2');
 
-    if (Game.whoseTurn === playerOne && p1.classList.contains('activePlayer')) {
+    if (Game.getWhoseTurn() === playerOne && p1.classList.contains('activePlayer')) {
       return true;
     } else {
       _toggleActiveClass(p1);
