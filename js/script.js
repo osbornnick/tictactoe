@@ -13,6 +13,7 @@ const Game = ((playerOne, playerTwo) => {
   let whoseTurn = playerOne;
 
   const getWhoseTurn = () => whoseTurn;
+  const getBoard = () => board;
 
   function restartGame() {
     board = Array(9).fill('');
@@ -51,21 +52,26 @@ const Game = ((playerOne, playerTwo) => {
     return false;
   }
 
-  return { board, makeMove, winner, getWhoseTurn };
+  return { getBoard, makeMove, getWhoseTurn, restartGame };
 })(playerOne, playerTwo);
 
 const displayController = (() => {
   "use strict";
   const _game = document.querySelector('.game');
 
+  function restartGame() {
+    Game.restartGame();
+    render();
+  }
+
   function _renderSquares() {
-    Game.board.forEach((square, i) => {
+    Game.getBoard().forEach((square, i) => {
       const div = document.createElement('div');
       div.className = 'square';
       div.style.gridRow = Math.ceil(i / 3 + 0.1);
       div.style.gridColumn = (i % 3) + 1;
       div.setAttribute('data', i);
-      div.textContent = Game.board[i];
+      div.textContent = Game.getBoard()[i];
       _game.appendChild(div);
 
       div.addEventListener("click", e => {
@@ -117,7 +123,9 @@ const displayController = (() => {
     console.log('game over');
   }
 
-  return { render, endGame };
+  return { render, endGame, restartGame };
 })();
 
 displayController.render();
+document.querySelector('.reload').addEventListener("click",
+                       () => displayController.restartGame());
