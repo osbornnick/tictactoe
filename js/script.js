@@ -92,13 +92,8 @@ const displayController = (() => {
   function _renderCurrentPlayer() {
 
     function _toggleActiveClass(ele) {
-      if (ele.classList.contains('activePlayer')) {
-        ele.classList.remove('activePlayer');
-        ele.classList.add('inactivePlayer');
-      } else {
-        ele.classList.remove('inactivePlayer');
-        ele.classList.add('activePlayer');
-      }
+      ele.classList.toggle('activePlayer');
+      ele.classList.toggle('inactivePlayer');
     }
 
     const p1 = document.querySelector('.p1');
