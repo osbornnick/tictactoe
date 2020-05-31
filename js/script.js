@@ -117,10 +117,10 @@ const displayController = (() => {
   function endGame() {
     console.log('game over');
   }
+  document.querySelector('.reload').addEventListener("click",
+                         () => displayController.restartGame());
 
   return { render, endGame, restartGame };
 })();
 
 displayController.render();
-document.querySelector('.reload').addEventListener("click",
-                       () => displayController.restartGame());
