@@ -101,6 +101,8 @@ const displayController = (() => {
 
     if (Game.getWhoseTurn() === playerOne && p1.classList.contains('activePlayer')) {
       return true;
+    } else if (Game.getWhoseTurn() === playerTwo && p2.classList.contains('activePlayer')) {
+      return true;
     } else {
       _toggleActiveClass(p1);
       _toggleActiveClass(p2);
