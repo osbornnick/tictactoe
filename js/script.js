@@ -1,11 +1,11 @@
-const playerFactory = (move) => {
+const playerFactory = (move, name) => {
   'use strict';
   let score = 0;
-  return { move, score };
+  return { move, score, name };
 };
 
-const playerOne = playerFactory('x');
-const playerTwo = playerFactory('o');
+const playerOne = playerFactory('x', "Player One");
+const playerTwo = playerFactory('o', "Player Two");
 
 const Game = ((playerOne, playerTwo) => {
   "use strict";
@@ -115,10 +115,13 @@ const displayController = (() => {
   }
 
   function endGame() {
-    console.log('game over');
+    const modalBody = document.querySelector('.modal-title');
+    modalBody.textContent = `${Game.getWhoseTurn().name} wins!`;
+    $('#winnerModal').modal();
   }
-  document.querySelector('.reload').addEventListener("click",
-                         () => displayController.restartGame());
+  document.querySelectorAll('.reload').forEach(r => {
+    r.addEventListener("click", () => displayController.restartGame());
+  });
 
   return { render, endGame, restartGame };
 })();

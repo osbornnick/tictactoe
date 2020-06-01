@@ -35,11 +35,19 @@
 }
 body {
   background-color: #FEFEE3;
-  color: #66717E;
 }
 
 .reload {
   width: 40px;
   height: 40px;
   margin: 20px;
+  -moz-transition: all .5s linear;
+  -webkit-transition: all .5s linear;
+  transition: all .5s linear;
+}
+
+.reload:active {
+  transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
 }
